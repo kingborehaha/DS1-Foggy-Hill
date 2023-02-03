@@ -78,9 +78,9 @@
             // 
             // Value_FogEndDist
             // 
-            this.Value_FogEndDist.Location = new System.Drawing.Point(221, 27);
+            this.Value_FogEndDist.Location = new System.Drawing.Point(204, 27);
             this.Value_FogEndDist.Name = "Value_FogEndDist";
-            this.Value_FogEndDist.Size = new System.Drawing.Size(81, 23);
+            this.Value_FogEndDist.Size = new System.Drawing.Size(98, 23);
             this.Value_FogEndDist.TabIndex = 87;
             this.Value_FogEndDist.Value = new decimal(new int[] {
             20,
@@ -91,11 +91,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(221, 9);
+            this.label1.Location = new System.Drawing.Point(204, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 15);
+            this.label1.Size = new System.Drawing.Size(98, 15);
             this.label1.TabIndex = 88;
-            this.label1.Text = "Fog Thickness";
+            this.label1.Text = "Fog End Distance";
             // 
             // MainForm
             // 

@@ -73,6 +73,21 @@ namespace FogMod
                             row["colA"].Value = (short)150;
                         }
                     }
+                    else if (param.ParamType == "LIGHT_SCATTERING_BANK")
+                    {
+                        // Default row data with modifications
+                        for (var i = 0; i < param.Rows.Count; i++)
+                        {
+                            PARAM.Row row = param.Rows[i];
+                            PARAM.Row newRow = new(row.ID, row.Name, param.AppliedParamdef);
+                            newRow["distanceMul"].Value = (short)0;
+                            newRow["sunR"].Value = (short)0;
+                            newRow["sunG"].Value = (short)0;
+                            newRow["sunB"].Value = (short)0;
+                            newRow["sunA"].Value = (short)0;
+                            param.Rows[i] = newRow;
+                        }
+                    }
                     else
                     {
                         // Default row data for everything else
