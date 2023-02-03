@@ -5,7 +5,10 @@ Has options to change fog thickness, brightness, and other things.
 Modifies DrawParam and Gameparam.
 Compatible with all mods, as long as this is installed after everything else.
 
-# Instructions
+# Requirements
+* .NET Desktop Runtime 6.0 https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+
+# How to use
 * For PTDE, run UnpackDarkSoulsForModding. DSR is unpacked by default.
 * Install any other mods first.
 * Run the tool.
@@ -14,8 +17,5 @@ Compatible with all mods, as long as this is installed after everything else.
 * Change options if desired.
 * Click install. That's it!
 
-# Requirements
-* .NET Desktop Runtime 6.0 https://dotnet.microsoft.com/en-us/download/dotnet/6.0
-
-# Info
+# Credits
 * Uses SoulsFormats https://github.com/JKAnderson/SoulsFormats
