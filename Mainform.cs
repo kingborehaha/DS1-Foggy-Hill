@@ -44,7 +44,10 @@ namespace FogMod
             var paths = Directory.GetFiles(datapath, "*.parambnd").ToList();
             paths.AddRange(Directory.GetFiles(datapath, "*parambnd.dcx").ToList());
 
+            float lockOnDist = (float)Value_LockOnDist.Value;
             short fogEndDist = (short)Value_FogEndDist.Value;
+            var fogBrightness = Value_FogBrightness.Value;
+
             foreach (string bndPath in paths)
             {
                 ConcurrentDictionary<string, PARAM> paramList = new();
@@ -66,11 +69,24 @@ namespace FogMod
                             row["fogBeginZ"].Value = (short)0;
                             row["fogEndZ"].Value = fogEndDist;
 
+                            row["colR"].Value = (short)(255 * (fogBrightness / 100));
+                            row["colG"].Value = (short)(255 * (fogBrightness / 100));
+                            row["colB"].Value = (short)(255 * (fogBrightness / 100));
+
+                            row["colA"].Value = (short)150;
+                            /*
+                            // v1
+                            row["degRotW"].Value = (short)100; // Fog thickness
+
+                            row["fogBeginZ"].Value = (short)0;
+                            row["fogEndZ"].Value = fogEndDist;
+
                             row["colR"].Value = (short)255;
                             row["colG"].Value = (short)255;
                             row["colB"].Value = (short)255;
 
                             row["colA"].Value = (short)150;
+                            */
                         }
                     }
                     else if (param.ParamType == "LIGHT_SCATTERING_BANK")
@@ -88,6 +104,22 @@ namespace FogMod
                             param.Rows[i] = newRow;
                         }
                     }
+                    else if (param.ParamType == "LOCK_CAM_PARAM_ST")
+                    {
+                        for (var i = 0; i < param.Rows.Count; i++)
+                        {
+                            PARAM.Row row = param.Rows[i];
+                            row["chrLockRangeMaxRadius"].Value = lockOnDist;
+                        }
+                    }
+                    else if (param.ParamType == "NPC_PARAM_ST")
+                    {
+                        for (var i = 0; i < param.Rows.Count; i++)
+                        {
+                            PARAM.Row row = param.Rows[i];
+                            row["lockDist"].Value = (byte)0;
+                        }
+                    }
                     else
                     {
                         // Default row data for everything else
@@ -97,6 +129,20 @@ namespace FogMod
                             param.Rows[i] = new PARAM.Row(row.ID, row.Name, param.AppliedParamdef);
                         }
                     }
+                    /*
+                    if (param.ParamType == "LIGHT_SCATTERING_BANK")
+                    {
+                        for (var i = 0; i < param.Rows.Count; i++)
+                        {
+                            PARAM.Row row = param.Rows[i];
+                            foreach (var cell in param.Rows[i].Cells)
+                            {
+                                if (cell.Def.DisplayType != PARAMDEF.DefType.dummy8)
+                                    cell.Value = cell.Def.Maximum;
+                            }
+                        }
+                    }
+                    */
                 });
 
                 // Save each param, then the parambnd
@@ -125,6 +171,7 @@ namespace FogMod
 
             _paramDefs = Util.LoadParamDefXmls("DS1");
             ModifyParams($@"{_installDirectory}\param\DrawParam");
+            ModifyParams($@"{_installDirectory}\param\GameParam");
 
             Button_Install.Enabled = true;
             Button_RestoreBackups.Enabled = true;
@@ -152,11 +199,6 @@ namespace FogMod
         private void Button_Install_Click(object sender, EventArgs e)
         {
             RunProgram();
-        }
-
-        private void Button_RestoreBackups_Click(object sender, EventArgs e)
-        {
-            Util.RestoreBackups(_installDirectory, _backupExtension);
         }
     }
 }
