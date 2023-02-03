@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Button_Install = new System.Windows.Forms.Button();
             this.FileDialog_Browse = new System.Windows.Forms.OpenFileDialog();
             this.Value_FogEndDist = new System.Windows.Forms.NumericUpDown();
@@ -41,6 +42,7 @@
             this.Value_FogBrightness = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.Value_LockOnDist = new System.Windows.Forms.NumericUpDown();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Value_FogEndDist)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -70,6 +72,7 @@
             this.Value_FogEndDist.Name = "Value_FogEndDist";
             this.Value_FogEndDist.Size = new System.Drawing.Size(73, 23);
             this.Value_FogEndDist.TabIndex = 87;
+            this.toolTip1.SetToolTip(this.Value_FogEndDist, "Distance until fog becomes 100% thick");
             this.Value_FogEndDist.Value = new decimal(new int[] {
             20,
             0,
@@ -79,11 +82,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(225, 66);
+            this.label1.Location = new System.Drawing.Point(200, 66);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 15);
+            this.label1.Size = new System.Drawing.Size(98, 15);
             this.label1.TabIndex = 88;
-            this.label1.Text = "Fog Dist";
+            this.label1.Text = "Max fog distance";
+            this.toolTip1.SetToolTip(this.label1, "Distance until fog becomes 100% thick");
             // 
             // tabControl1
             // 
@@ -114,16 +118,16 @@
             this.Button_RestoreBackups.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Button_RestoreBackups.Location = new System.Drawing.Point(8, 83);
             this.Button_RestoreBackups.Name = "Button_RestoreBackups";
-            this.Button_RestoreBackups.Size = new System.Drawing.Size(108, 24);
+            this.Button_RestoreBackups.Size = new System.Drawing.Size(86, 24);
             this.Button_RestoreBackups.TabIndex = 88;
-            this.Button_RestoreBackups.Text = "Restore Backups";
+            this.Button_RestoreBackups.Text = "Uninstall";
             this.Button_RestoreBackups.UseVisualStyleBackColor = true;
             // 
             // Button_Browse
             // 
             this.Button_Browse.AllowDrop = true;
             this.Button_Browse.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Button_Browse.Location = new System.Drawing.Point(122, 83);
+            this.Button_Browse.Location = new System.Drawing.Point(8, 20);
             this.Button_Browse.Name = "Button_Browse";
             this.Button_Browse.Size = new System.Drawing.Size(86, 24);
             this.Button_Browse.TabIndex = 87;
@@ -155,6 +159,7 @@
             this.label3.Size = new System.Drawing.Size(106, 15);
             this.label3.TabIndex = 92;
             this.label3.Text = "Fog Brightness (%)";
+            this.toolTip1.SetToolTip(this.label3, "Brightness of fog. 100 = 100% (white), 0 = 0% (black)");
             // 
             // Value_FogBrightness
             // 
@@ -162,6 +167,7 @@
             this.Value_FogBrightness.Name = "Value_FogBrightness";
             this.Value_FogBrightness.Size = new System.Drawing.Size(73, 23);
             this.Value_FogBrightness.TabIndex = 91;
+            this.toolTip1.SetToolTip(this.Value_FogBrightness, "Brightness of fog. 100 = 100% (white), 0 = 0% (black)");
             this.Value_FogBrightness.Value = new decimal(new int[] {
             80,
             0,
@@ -171,11 +177,12 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 13);
+            this.label2.Location = new System.Drawing.Point(17, 13);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 15);
+            this.label2.Size = new System.Drawing.Size(101, 15);
             this.label2.TabIndex = 90;
-            this.label2.Text = "Lock-On Dist";
+            this.label2.Text = "Lock-On Distance";
+            this.toolTip1.SetToolTip(this.label2, "Max distance enemies can be locked onto");
             // 
             // Value_LockOnDist
             // 
@@ -183,6 +190,7 @@
             this.Value_LockOnDist.Name = "Value_LockOnDist";
             this.Value_LockOnDist.Size = new System.Drawing.Size(73, 23);
             this.Value_LockOnDist.TabIndex = 89;
+            this.toolTip1.SetToolTip(this.Value_LockOnDist, "Max distance enemies can be locked onto");
             this.Value_LockOnDist.Value = new decimal(new int[] {
             15,
             0,
@@ -224,5 +232,6 @@
         private NumericUpDown Value_LockOnDist;
         private Label label3;
         private NumericUpDown Value_FogBrightness;
+        private ToolTip toolTip1;
     }
 }
