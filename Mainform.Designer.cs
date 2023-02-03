@@ -122,6 +122,7 @@
             this.Button_RestoreBackups.TabIndex = 88;
             this.Button_RestoreBackups.Text = "Uninstall";
             this.Button_RestoreBackups.UseVisualStyleBackColor = true;
+            this.Button_RestoreBackups.Click += new System.EventHandler(this.Button_RestoreBackups_Click);
             // 
             // Button_Browse
             // 

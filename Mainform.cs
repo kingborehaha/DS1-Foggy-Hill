@@ -64,29 +64,25 @@ namespace FogMod
                     {
                         foreach (var row in param.Rows)
                         {
-                            row["degRotW"].Value = (short)100; // Fog thickness
-
                             row["fogBeginZ"].Value = (short)0;
-                            row["fogEndZ"].Value = fogEndDist;
 
                             row["colR"].Value = (short)(255 * (fogBrightness / 100));
                             row["colG"].Value = (short)(255 * (fogBrightness / 100));
                             row["colB"].Value = (short)(255 * (fogBrightness / 100));
+                            if (_IsPTDE)
+                            {
+                                row["degRotW"].Value = (short)150; // Fog thickness
+                                row["fogEndZ"].Value = fogEndDist * 1.5;
 
-                            row["colA"].Value = (short)150;
-                            /*
-                            // v1
-                            row["degRotW"].Value = (short)100; // Fog thickness
+                                row["colA"].Value = (short)125;
+                            }
+                            else
+                            {
+                                row["degRotW"].Value = (short)100; // Fog thickness
+                                row["fogEndZ"].Value = fogEndDist;
 
-                            row["fogBeginZ"].Value = (short)0;
-                            row["fogEndZ"].Value = fogEndDist;
-
-                            row["colR"].Value = (short)255;
-                            row["colG"].Value = (short)255;
-                            row["colB"].Value = (short)255;
-
-                            row["colA"].Value = (short)150;
-                            */
+                                row["colA"].Value = (short)150;
+                            }
                         }
                     }
                     else if (param.ParamType == "LIGHT_SCATTERING_BANK")
@@ -102,6 +98,34 @@ namespace FogMod
                             newRow["sunB"].Value = (short)0;
                             newRow["sunA"].Value = (short)0;
                             param.Rows[i] = newRow;
+                        }
+                    }
+                    else if (param.ParamType == "TONE_MAP_BANK")
+                    {
+                        // Default row data with modifications
+                        if (_IsPTDE)
+                        {
+                            for (var i = 0; i < param.Rows.Count; i++)
+                            {
+                                PARAM.Row row = param.Rows[i];
+                                PARAM.Row newRow = new(row.ID, row.Name, param.AppliedParamdef);
+                                newRow["bloomBegin"].Value = (sbyte)0;
+                                newRow["bloomBeginFar"].Value = (sbyte)0;
+                                newRow["bloomNearDist"].Value = (sbyte)0;
+                                newRow["bloomFarDist"].Value = (sbyte)0;
+                                newRow["bloomMul"].Value = (sbyte)0;
+                                newRow["bloomMulFar"].Value = (sbyte)0;
+                                param.Rows[i] = newRow;
+                            }
+                        }
+                        else
+                        {
+                            // Default row data
+                            for (var i = 0; i < param.Rows.Count; i++)
+                            {
+                                PARAM.Row row = param.Rows[i];
+                                param.Rows[i] = new PARAM.Row(row.ID, row.Name, param.AppliedParamdef);
+                            }
                         }
                     }
                     else if (param.ParamType == "LOCK_CAM_PARAM_ST")
@@ -129,20 +153,6 @@ namespace FogMod
                             param.Rows[i] = new PARAM.Row(row.ID, row.Name, param.AppliedParamdef);
                         }
                     }
-                    /*
-                    if (param.ParamType == "LIGHT_SCATTERING_BANK")
-                    {
-                        for (var i = 0; i < param.Rows.Count; i++)
-                        {
-                            PARAM.Row row = param.Rows[i];
-                            foreach (var cell in param.Rows[i].Cells)
-                            {
-                                if (cell.Def.DisplayType != PARAMDEF.DefType.dummy8)
-                                    cell.Value = cell.Def.Maximum;
-                            }
-                        }
-                    }
-                    */
                 });
 
                 // Save each param, then the parambnd
@@ -163,6 +173,7 @@ namespace FogMod
 
         private string _backupExtension = ".fogbak";
         private string _installDirectory = "";
+        private bool _IsPTDE = false;
 
         private void RunProgram()
         {
@@ -193,12 +204,21 @@ namespace FogMod
         {
             FileDialog_Browse.ShowDialog();
             _installDirectory = Path.GetDirectoryName(FileDialog_Browse.FileName);
+            if (Path.GetFileName(FileDialog_Browse.FileName) == "DARKSOULS.exe")
+                _IsPTDE = true;
+            else
+                _IsPTDE = false;
             CheckEnableActivateButton();
         }
 
         private void Button_Install_Click(object sender, EventArgs e)
         {
             RunProgram();
+        }
+
+        private void Button_RestoreBackups_Click(object sender, EventArgs e)
+        {
+            Util.RestoreBackups(_installDirectory, _backupExtension);
         }
     }
 }
