@@ -160,7 +160,7 @@
             this.label3.Size = new System.Drawing.Size(106, 15);
             this.label3.TabIndex = 92;
             this.label3.Text = "Fog Brightness (%)";
-            this.toolTip1.SetToolTip(this.label3, "Brightness of fog. 100 = 100% (white), 0 = 0% (black)");
+            this.toolTip1.SetToolTip(this.label3, "Brightness of fog. 100% = white, 0% = black");
             // 
             // Value_FogBrightness
             // 
@@ -168,7 +168,7 @@
             this.Value_FogBrightness.Name = "Value_FogBrightness";
             this.Value_FogBrightness.Size = new System.Drawing.Size(73, 23);
             this.Value_FogBrightness.TabIndex = 91;
-            this.toolTip1.SetToolTip(this.Value_FogBrightness, "Brightness of fog. 100 = 100% (white), 0 = 0% (black)");
+            this.toolTip1.SetToolTip(this.Value_FogBrightness, "Brightness of fog. 100% = white, 0% = black");
             this.Value_FogBrightness.Value = new decimal(new int[] {
             80,
             0,
